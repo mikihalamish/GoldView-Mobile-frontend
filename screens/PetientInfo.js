@@ -1,17 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { Input, Card, Button } from 'react-native-elements';
+import { Input, Card, Chip, Button } from 'react-native-elements';
 
 export default function PetientPage(props) {
   
+  
     return (
       <View style={styles.container}>
+        <Text style={styles.title}>Prtient</Text>
+
         <ScrollView>
-          <Text style={styles.title}>Patient</Text>
           <Card>
             <Input
             label="Name"
-            value={props.patient.first_name + " " + props.patient.last_name}
+            value={props.patient.firstName + " " + props.patient.lastName}
             disabled
             />
             <Input
@@ -21,22 +23,22 @@ export default function PetientPage(props) {
             />
             <Input
             label="Age"
-            value={claculateAge(props.patient.birth_date).toString()}
+            value={claculateAge(props.patient.birthDate).toString()}
             disabled
             />
             <Input
             label="Contact name"
-            value={props.patient.contact_name}
+            value={props.patient.contactName}
             disabled
             />
             <Input
             label="Contact phone"
-            value={props.patient.contact_phone_number}
+            value={props.patient.contactPhoneNumber}
             disabled
             />
             <Input
             label="Arrival date"
-            value={new Date(props.patient.reception_date).toLocaleDateString()}
+            value={new Date(props.patient.receptionDate).toLocaleDateString()}
             disabled
             />
           </Card>
@@ -44,53 +46,30 @@ export default function PetientPage(props) {
           <Card>
             <Input
             label="Last Sturgeon"
-            value="12"
+            value={new Date(props.patient.receptionDate).toLocaleDateString()}
             disabled
             />
             <Input
             label="Last Pulse"
-            value="54"
+            value={new Date(props.patient.receptionDate).toLocaleDateString()}
             disabled
             />
             <Input
             label="Last Blood pressure"
-            value="2"
+            value={new Date(props.patient.receptionDate).toLocaleDateString()}
             disabled
             />
-
-            <Text style={{fontSize: 17, marginBottom: 10,}}>Is being aired:
-              <Text style={{color: 'red'}}> YES </Text>
-              {/* <Text style={{color: 'green'}}> NO</Text> */}
-            </Text>
-
-            <View style={{marginTop: 10}}>
-              <Button
-              title="Stop Ventilation"
-              buttonStyle={{
-                borderColor: 'red',
-                borderWidth: 3,
-              }}
-              titleStyle={{
-                color: 'red',
-              }}
-              type='outline'
-              />
-            </View>
-
-            <View style={{marginTop: 10}}>
-              <Button
-              title="New Indicators"
-              type='outline'
-              buttonStyle={{
-                borderWidth: 3,
-              }}
-              />
-            </View>
+            <Chip
+            buttonStyle={{
+              backgroundColor: '#FF0000'
+            }}
+            title="Is being aired"
+            />
           </Card>
         </ScrollView>
 
         <Button
-        title="Release Patient"
+        title="Solid Button"
         />
       </View>
     );
@@ -100,13 +79,14 @@ export default function PetientPage(props) {
     container: {
       backgroundColor: '#ffffff',
       justifyContent: 'center',
-      paddingBottom: 100,
+    
+      height:'90%'
     },
     title: {
       color: '#000000',
-      fontSize: 25,
+      fontSize: 20,
+      marginBottom: 10,
       paddingHorizontal: 10,
-      textAlign: 'center',
     },
   });
 
