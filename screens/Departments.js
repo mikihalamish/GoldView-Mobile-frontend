@@ -5,14 +5,22 @@ import departmentsJson from "../data/departments.json";
 import { NativeRouter, Route, Link } from "react-router-native";
 
 
-const Departments = () => {
+// const getDepartments = () => {
+
+// }
+
+const Departments = ({setStage, setDepartment}) => {
     return (
         <View style={styles.departments}>
             <Text style={styles.mainTitle}>Departments</Text>
-            <ScrollView style={styles.scroll}>
+            <ScrollView>
                 {departmentsJson.data.map((dep) => {
                     return (
-                        <TouchableOpacity key={dep.id} style={styles.depButton} >
+                        <TouchableOpacity key={dep.id} style={styles.depButton} onPress={() => {
+                            setDepartment(dep.id);
+                            setStage(1);
+                        }
+                        }>
                             <Text style={styles.text}>{dep.name}</Text>
                         </TouchableOpacity>
                     )
@@ -40,7 +48,7 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        color: "black",
+        color: "#000000",
         fontSize: 30
     },
 
@@ -54,8 +62,6 @@ const styles = StyleSheet.create({
 
 
     },
-    scroll: {
-    }
 });
 
-export default Departments
+export default Departments;

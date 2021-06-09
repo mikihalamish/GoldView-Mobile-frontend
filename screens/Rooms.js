@@ -1,20 +1,34 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Picker, ScrollView, Button, TouchableOpacity } from 'react-native';
 /* import { Picker } from '@react-native-picker/picker'; */
-import departmentsJson from "../data/departments.json";
+import roomsJson from "../data/departments.json";
 import { NativeRouter, Route, Link } from "react-router-native";
 
 
-const Rooms = () => {
+const Rooms = ({setRoom}) => {
+    let buttonPressed = false;
     return (
         <View style={styles.departments}>
-            <Text style={styles.mainTitle}>Department</Text>
-            <ScrollView style={styles.scroll}>
-                {departmentsJson.data.map((dep) => {
+            <Text style={styles.mainTitle}>Rooms</Text>
+            <ScrollView>
+                {roomsJson.data.map((room) => { // ###
                     return (
-                        <TouchableOpacity key={dep.id} style={styles.depButton} >
-                            <Text style={styles.text}>{dep.name}</Text>
+                        <View>
+                        <TouchableOpacity key={room.id} style={styles.depButton} onPress={() => {
+                            buttonPressed = !buttonPressed
+                        }
+                        }>
+                            <Text style={styles.text}>{room.name}</Text>
                         </TouchableOpacity>
+                        {buttonPressed ? <ScrollView>
+                            {roomsJson.data.map((patient) => {
+                                return(
+                                <TouchableOpacity key={patient.id} style={styles.patientButton} onPress={() =>{
+                                }}></TouchableOpacity>);
+                            })}
+                        </ScrollView> : <View></View>}
+                        </View>
+                        
                     )
                 })
                 }
@@ -57,8 +71,15 @@ const styles = StyleSheet.create({
 
 
     },
-    scroll: {
+    patientButton: {
+        height: 50,
+        backgroundColor: "#F75E49",
+        marginBottom: 40,
+        width: 200,
+        alignItems: "center",
+        borderRadius: 22,
     }
+    
 });
 
-export default Departments
+export default Rooms

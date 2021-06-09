@@ -7,7 +7,7 @@ import { Header, Button } from "react-native-elements";
 import { NativeRouter, Route, Link } from "react-router-native";
 import BreathingMachineScreen from './screens/BreathingMachineScreen'
 import PetientInfo from './screens/PetientInfo.js';
-import Main from './screens/Main'
+import Main from './screens/Main.js'
 
 const routes = [
   {
