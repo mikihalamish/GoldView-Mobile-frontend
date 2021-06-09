@@ -1,0 +1,44 @@
+{
+    "data": [
+        {
+            "id": 0,
+            "name": "Kids D",
+            "hospital_id": 0
+        },
+        {
+            "id": 1,
+            "name": "GoldStar A",
+            "hospital_id": 0
+        },
+        {
+            "id": 2,
+            "name": "GoldStar B",
+            "hospital_id": 0
+        },
+        {
+            "id": 3,
+            "name": "GoldStar C",
+            "hospital_id": 0
+        },
+        {
+            "id": 4,
+            "name": "Heart A",
+            "hospital_id": 0
+        },
+        {
+            "id": 5,
+            "name": "Heart B",
+            "hospital_id": 0
+        },
+        {
+            "id": 6,
+            "name": "Surgery A1",
+            "hospital_id": 0
+        },
+        {
+            "id": 7,
+            "name": "Surgery A2",
+            "hospital_id": 1
+        }
+    ]
+}
