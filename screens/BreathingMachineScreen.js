@@ -56,11 +56,15 @@ class BreathingMachineScreen extends React.Component {
     return (
       <TouchableOpacity onPress={() => this.toggleOverlay(vent)}>
         <Card containerStyle={styles.listItem} borderRadius={30}>
-          <Text style={{ fontSize: 30, textAlign: "center" }}>Surgery</Text>
+          <Text style={{ fontSize: 30, textAlign: "center" }}>{vent.dept}</Text>
           <Text
-            style={{ fontSize: 20, textAlign: "center", fontWeight: "100" }}
+            style={{
+              fontSize: 20,
+              textAlign: "center",
+              fontWeight: "100"
+            }}
           >
-            A102
+            {vent.bed}
           </Text>
         </Card>
       </TouchableOpacity>
@@ -73,26 +77,26 @@ class BreathingMachineScreen extends React.Component {
         <Text style={styles.title}>Breathing Machine</Text>
         <FlatList
           data={[
-            { dept: "Devin", bed: "A123" },
-            { dept: "Afsdfg", bed: "V1A3" },
-            { dept: "Vsad", bed: "AG24" },
-            { dept: "Efgds", bed: "A122" },
-            { dept: "Devin", bed: "A123" },
-            { dept: "Afsdfg", bed: "V1A3" },
-            { dept: "Vsad", bed: "AG24" },
-            { dept: "Efgds", bed: "A122" },
-            { dept: "Devin", bed: "A123" },
-            { dept: "Afsdfg", bed: "V1A3" },
-            { dept: "Vsad", bed: "AG24" },
-            { dept: "Efgds", bed: "A122" },
-            { dept: "Devin", bed: "A123" },
-            { dept: "Afsdfg", bed: "V1A3" },
-            { dept: "Vsad", bed: "AG24" },
-            { dept: "Efgds", bed: "A122" }
+            { dept: "Surgery", bed: "A123" },
+            { dept: "Surgery", bed: "V1A3" },
+            { dept: "Medical", bed: "AG24" },
+            { dept: "Surgery", bed: "A122" },
+            { dept: "Another", bed: "A123" },
+            { dept: "Surgery", bed: "V1A3" },
+            { dept: "Surgery", bed: "AG24" },
+            { dept: "Another", bed: "A122" },
+            { dept: "Surgery", bed: "A123" },
+            { dept: "Surgery", bed: "V1A3" },
+            { dept: "Medical", bed: "AG24" },
+            { dept: "Surgery", bed: "A122" },
+            { dept: "Surgery", bed: "A123" },
+            { dept: "Another", bed: "V1A3" },
+            { dept: "Surgery", bed: "AG24" },
+            { dept: "Medical", bed: "A122" }
           ]}
-          renderItem={({ vent }) => this.renderListItem(vent)}
+          renderItem={({ item }) => this.renderListItem(item)}
           keyExtractor={(vent, index) => index.toString()}
-          marginBottom={175}
+          marginBottom={200}
         />
         <Overlay
           isVisible={this.state.visible}
@@ -132,13 +136,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 20,
     shadowRadius: 5,
-    padding: 20,
+    padding: 15,
     shadowColor: "black",
-    shadowOpacity: 0.2,
-    backgroundColor: "#fff",
-    borderRadius: 20,
-    borderWidth: 0,
+    shadowOpacity: 0,
+    backgroundColor: "#AEC6CF",
+    borderRadius: 30,
+    borderWidth: 2,
+    borderColor: "#496E7C",
     display: "flex",
+    color: "#749DAD",
     justifyContent: "center"
   },
   title: {
