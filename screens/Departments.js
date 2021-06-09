@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Picker, ScrollView, Button, TouchableOpacity } from 'react-native';
 /* import { Picker } from '@react-native-picker/picker'; */
-import departmentsJson from "../data/departments.json"
+import departmentsJson from "../data/departments.json";
+import { NativeRouter, Route, Link } from "react-router-native";
+
 
 const Departments = () => {
     return (
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F0F0F0',
         display: 'flex',
         width: '100%',
-        height: '90%',
+        height: '80%',
         justifyContent: "center",
         alignItems: "center",
 
