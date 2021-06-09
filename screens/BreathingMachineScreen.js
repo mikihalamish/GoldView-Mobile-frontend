@@ -28,17 +28,23 @@ class BreathingMachineScreen extends React.Component {
   }
 
   loadVentsFromServer = async () => {
-    const res = await axios.get(`${serverUrl}/vents`);
+    const res = await axios.get(`${serverUrl}/ventilators/free`);
+
     if (res.status === 200) {
-      this.setState({ vents: res.body });
+      this.setState({ vents: res.data });
     }
   };
 
   save = async () => {
     // send request to the api
     const currentVent = this.state.currentModalVent;
-    const id = this.state.id;
-    const res = await axios.patch(`${serverUrl}/vents/`);
+    let id = this.state.id;
+    id = id.slice(0, 3) + "-" + id.slice(3, 5) + "-" + id.slice(5, 9);
+    console.log(id);
+    const res = await axios.patch(`${serverUrl}/ventilators`, {
+      serialNumber: this.state.currentModalVent.serialNumber,
+      patient: { id: id }
+    });
 
     await this.loadVentsFromServer();
     this.setState({ visible: false });
@@ -56,7 +62,9 @@ class BreathingMachineScreen extends React.Component {
     return (
       <TouchableOpacity onPress={() => this.toggleOverlay(vent)}>
         <Card containerStyle={styles.listItem} borderRadius={30}>
-          <Text style={{ fontSize: 30, textAlign: "center" }}>{vent.dept}</Text>
+          <Text style={{ fontSize: 30, textAlign: "center" }}>
+            {vent.department.name}
+          </Text>
           <Text
             style={{
               fontSize: 20,
@@ -64,7 +72,7 @@ class BreathingMachineScreen extends React.Component {
               fontWeight: "100"
             }}
           >
-            {vent.bed}
+            {vent.serialNumber}
           </Text>
         </Card>
       </TouchableOpacity>
@@ -73,30 +81,13 @@ class BreathingMachineScreen extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={{ height: "90%" }}>
         <Text style={styles.title}>Breathing Machine</Text>
         <FlatList
-          data={[
-            { dept: "Surgery", bed: "A123" },
-            { dept: "Surgery", bed: "V1A3" },
-            { dept: "Medical", bed: "AG24" },
-            { dept: "Surgery", bed: "A122" },
-            { dept: "Another", bed: "A123" },
-            { dept: "Surgery", bed: "V1A3" },
-            { dept: "Surgery", bed: "AG24" },
-            { dept: "Another", bed: "A122" },
-            { dept: "Surgery", bed: "A123" },
-            { dept: "Surgery", bed: "V1A3" },
-            { dept: "Medical", bed: "AG24" },
-            { dept: "Surgery", bed: "A122" },
-            { dept: "Surgery", bed: "A123" },
-            { dept: "Another", bed: "V1A3" },
-            { dept: "Surgery", bed: "AG24" },
-            { dept: "Medical", bed: "A122" }
-          ]}
+          data={this.state.vents}
           renderItem={({ item }) => this.renderListItem(item)}
           keyExtractor={(vent, index) => index.toString()}
-          marginBottom={200}
+          marginBottom={0}
         />
         <Overlay
           isVisible={this.state.visible}
