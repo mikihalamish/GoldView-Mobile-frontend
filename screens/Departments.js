@@ -10,7 +10,7 @@ const Departments = () => {
             <ScrollView style={styles.scroll}>
                 {departmentsJson.data.map((dep) => {
                     return (
-                        <TouchableOpacity style={styles.depButton} >
+                        <TouchableOpacity key={dep.id} style={styles.depButton} >
                             <Text style={styles.text}>{dep.name}</Text>
                         </TouchableOpacity>
                     )
