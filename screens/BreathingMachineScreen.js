@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import {
   View,
   Text,
@@ -7,75 +8,114 @@ import {
   TouchableOpacity
 } from "react-native";
 
-import {
-  ListItem,
-  Avatar,
-  Card,
-  Button,
-  Overlay,
-  Input
-} from "react-native-elements";
+import { Button, Overlay, Input } from "react-native-elements";
+import { Card } from "react-native-elements/dist/card/Card";
+
+const serverUrl =
+  "http://gold-view-server-goldview.apps.openforce.openforce.biz";
 
 class BreathingMachineScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { vents: {}, visible: false };
+    this.state = {
+      vents: {},
+      visible: false,
+      id: "",
+      currentModalVent: {},
+      idError: ""
+    };
+    this.loadVentsFromServer();
   }
 
-  componentDidMount() {
-    // call the api to get the free vents
-  }
+  loadVentsFromServer = async () => {
+    const res = await axios.get(`${serverUrl}/ventilators/free`);
 
-  toggleOverlay = () => {
-    this.setState({ visible: !this.state.visible });
+    if (res.status === 200) {
+      this.setState({ vents: res.data });
+    }
+  };
+
+  save = async () => {
+    // send request to the api
+    const currentVent = this.state.currentModalVent;
+    let id = this.state.id;
+    id = id.slice(0, 3) + "-" + id.slice(3, 5) + "-" + id.slice(5, 9);
+    console.log(id);
+    const res = await axios.patch(`${serverUrl}/ventilators`, {
+      serialNumber: this.state.currentModalVent.serialNumber,
+      patient: { id: id }
+    });
+
+    await this.loadVentsFromServer();
+    this.setState({ visible: false });
+  };
+
+  toggleOverlay = vent => {
+    this.setState({
+      visible: !this.state.visible,
+      currentModalVent: this.state.visible ? {} : vent,
+      id: ""
+    });
   };
 
   renderListItem = vent => {
     return (
-      <TouchableOpacity onPress={this.toggleOverlay}>
-        <View style={styles.listItem}>
-          <Text>department</Text>
-          <Text>A102</Text>
-        </View>
+      <TouchableOpacity onPress={() => this.toggleOverlay(vent)}>
+        <Card containerStyle={styles.listItem} borderRadius={30}>
+          <Text style={{ fontSize: 30, textAlign: "center" }}>
+            {vent.department.name}
+          </Text>
+          <Text
+            style={{
+              fontSize: 20,
+              textAlign: "center",
+              fontWeight: "100"
+            }}
+          >
+            {vent.serialNumber}
+          </Text>
+        </Card>
       </TouchableOpacity>
     );
   };
 
   render() {
     return (
-      <View style={{height: '90%'}}>
+      <View style={{ height: "90%" }}>
         <Text style={styles.title}>Breathing Machine</Text>
         <FlatList
-          data={[
-            { dept: "Devin", bed: "A123" },
-            { dept: "Afsdfg", bed: "V1A3" },
-            { dept: "Vsad", bed: "AG24" },
-            { dept: "Efgds", bed: "A122" },
-            { dept: "Devin", bed: "A123" },
-            { dept: "Afsdfg", bed: "V1A3" },
-            { dept: "Vsad", bed: "AG24" },
-            { dept: "Efgds", bed: "A122" },
-            { dept: "Devin", bed: "A123" },
-            { dept: "Afsdfg", bed: "V1A3" },
-            { dept: "Vsad", bed: "AG24" },
-            { dept: "Efgds", bed: "A122" },
-            { dept: "Devin", bed: "A123" },
-            { dept: "Afsdfg", bed: "V1A3" },
-            { dept: "Vsad", bed: "AG24" },
-            { dept: "Efgds", bed: "A122" }
-          ]}
-          renderItem={({ vent }) => this.renderListItem(vent)}
+          data={this.state.vents}
+          renderItem={({ item }) => this.renderListItem(item)}
           keyExtractor={(vent, index) => index.toString()}
-          marginBottom={175}
+          marginBottom={0}
         />
         <Overlay
           isVisible={this.state.visible}
           onBackdropPress={this.toggleOverlay}
           overlayStyle={styles.overlay}
         >
-          <Text>Insert patient ID:</Text>
-          <Input placeholder="BASIC INPUT" />
-          <Button title="SAVE" onPress="" />
+          <Text
+            style={{ textAlign: "center", fontSize: 20, marginVertical: 20 }}
+          >
+            Insert patient ID
+          </Text>
+          <Input
+            placeholder="Patient ID"
+            onChangeText={id => this.setState({ id: id })}
+            keyboardType="number-pad"
+            maxLength={9}
+            value={this.state.id}
+          />
+          <Button
+            title="SAVE"
+            onPress={() => this.save()}
+            style={{
+              marginBottom: 25,
+              marginHorizontal: "auto"
+            }}
+            buttonStyle={{ paddingHorizontal: 30 }}
+            disabled={this.state.id.length != 9}
+          />
         </Overlay>
       </View>
     );
@@ -84,21 +124,32 @@ class BreathingMachineScreen extends React.Component {
 
 const styles = StyleSheet.create({
   listItem: {
-    marginHorizontal: 50,
-    marginVertical: 10,
-    shadowRadius: 20,
-    height: 150,
-    shadowColor: "black"
+    marginHorizontal: 30,
+    marginVertical: 20,
+    shadowRadius: 5,
+    padding: 15,
+    shadowColor: "black",
+    shadowOpacity: 0,
+    backgroundColor: "#AEC6CF",
+    borderRadius: 30,
+    borderWidth: 2,
+    borderColor: "#496E7C",
+    display: "flex",
+    color: "#749DAD",
+    justifyContent: "center"
   },
   title: {
     fontSize: 30,
     textAlign: "center",
-    marginVertical: 20
+    marginVertical: 20,
+    fontWeight: "bold"
   },
   overlay: {
-    width: 200,
-    height: 200,
-    display: "flex"
+    width: "75%",
+    display: "flex",
+    justifyContent: "center",
+    paddingHorizontal: 30,
+    alignItems: "center"
   }
 });
 

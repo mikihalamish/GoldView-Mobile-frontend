@@ -1,15 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { Input, Card, Chip, Button } from 'react-native-elements';
+import { Input, Card, Button } from 'react-native-elements';
 
 export default function PetientPage(props) {
   
-  
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Prtient</Text>
-
         <ScrollView>
+          <Text style={styles.title}>Patient</Text>
           <Card>
             <Input
             label="Name"
@@ -46,30 +44,53 @@ export default function PetientPage(props) {
           <Card>
             <Input
             label="Last Sturgeon"
-            value={new Date(props.patient.reception_date).toLocaleDateString()}
+            value="12"
             disabled
             />
             <Input
             label="Last Pulse"
-            value={new Date(props.patient.reception_date).toLocaleDateString()}
+            value="54"
             disabled
             />
             <Input
             label="Last Blood pressure"
-            value={new Date(props.patient.reception_date).toLocaleDateString()}
+            value="2"
             disabled
             />
-            <Chip
-            buttonStyle={{
-              backgroundColor: '#FF0000'
-            }}
-            title="Is being aired"
-            />
+
+            <Text style={{fontSize: 17, marginBottom: 10,}}>Is being aired:
+              <Text style={{color: 'red'}}> YES </Text>
+              {/* <Text style={{color: 'green'}}> NO</Text> */}
+            </Text>
+
+            <View style={{marginTop: 10}}>
+              <Button
+              title="Stop Ventilation"
+              buttonStyle={{
+                borderColor: 'red',
+                borderWidth: 3,
+              }}
+              titleStyle={{
+                color: 'red',
+              }}
+              type='outline'
+              />
+            </View>
+
+            <View style={{marginTop: 10}}>
+              <Button
+              title="New Indicators"
+              type='outline'
+              buttonStyle={{
+                borderWidth: 3,
+              }}
+              />
+            </View>
           </Card>
         </ScrollView>
 
         <Button
-        title="Solid Button"
+        title="Release Patient"
         />
       </View>
     );
@@ -83,9 +104,9 @@ export default function PetientPage(props) {
     },
     title: {
       color: '#000000',
-      fontSize: 20,
-      marginBottom: 10,
+      fontSize: 25,
       paddingHorizontal: 10,
+      textAlign: 'center',
     },
   });
 
