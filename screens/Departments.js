@@ -8,7 +8,7 @@ import { NativeRouter, Route, Link } from "react-router-native";
 const Departments = () => {
     return (
         <View style={styles.departments}>
-            <Text style={styles.mainTitle}>Department</Text>
+            <Text style={styles.mainTitle}>Departments</Text>
             <ScrollView style={styles.scroll}>
                 {departmentsJson.data.map((dep) => {
                     return (
@@ -27,13 +27,10 @@ const Departments = () => {
 const styles = StyleSheet.create({
     departments: {
         backgroundColor: '#F0F0F0',
-        display: 'flex',
         width: '100%',
-        height: '80%',
+        height: '90%',
         justifyContent: "center",
         alignItems: "center",
-
-
     },
     mainTitle: {
         fontSize: 50,
@@ -49,7 +46,7 @@ const styles = StyleSheet.create({
 
     depButton: {
         height: 50,
-        backgroundColor: "#F75E49",
+        backgroundColor: "lightblue",
         marginBottom: 40,
         width: 300,
         alignItems: "center",

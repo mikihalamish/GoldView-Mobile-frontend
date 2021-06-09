@@ -43,7 +43,7 @@ class BreathingMachineScreen extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={{height: '90%'}}>
         <Text style={styles.title}>Breathing Machine</Text>
         <FlatList
           data={[

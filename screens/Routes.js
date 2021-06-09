@@ -11,12 +11,6 @@ const Routes = (route) => {
          )}
       />
    )
-   /*  <NativeRouter>
-       <Route key="root">
-          <Route key="Departments" component={Departments} title="Departments" initial={true} />
-          <Route key="BreathingMachineScreen" component={BreathingMachineScreen} title="BreathingMachineScreen" initial={true} />
-       </Route >
-    </NativeRouter> */
 }
 
 export default Routes
