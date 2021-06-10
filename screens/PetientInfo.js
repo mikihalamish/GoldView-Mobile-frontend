@@ -1,13 +1,27 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Input, Card, Chip, Button } from 'react-native-elements';
+import axios from 'axios';
+
+
+const serverUrl =
+    "http://gold-view-server-goldview.apps.openforce.openforce.biz";
 
 export default function PetientPage(props) {
   
-  
+    const releasePatient =  () => {
+       axios.post(`${serverUrl}/patients/release/${props.patient.id}`).then(({data}) => {
+         props.setStage(2)
+       })
+    }
+
+    const stopVentilation = async () => {
+     // props.setStage(2);
+    }
+
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Prtient</Text>
+        <Text style={styles.title}>Patient</Text>
 
         <ScrollView>
           <Card>
@@ -59,17 +73,43 @@ export default function PetientPage(props) {
             value={new Date(props.patient.receptionDate).toLocaleDateString()}
             disabled
             />
-            <Chip
-            buttonStyle={{
-              backgroundColor: '#FF0000'
-            }}
-            title="Is being aired"
-            />
+            
+            <Text style={{fontSize: 17, marginBottom: 10,}}>Is being aired:
+              <Text style={{color: 'red'}}> YES </Text>
+              {/* <Text style={{color: 'green'}}> NO</Text> */}
+            </Text>
+
+            <View style={{marginTop: 10}}>
+              <Button
+              title="Stop Ventilation"
+              buttonStyle={{
+                borderColor: 'red',
+                borderWidth: 3,
+              }}
+              titleStyle={{
+                color: 'red',
+              }}
+              type='outline'
+              onPress={stopVentilation}
+              />
+            </View>
+
+            <View style={{marginTop: 10}}>
+              <Button
+              title="New Indicators"
+              type='outline'
+              buttonStyle={{
+                borderWidth: 3,
+              }}
+              />
+            </View>
           </Card>
+          
         </ScrollView>
 
         <Button
-        title="Solid Button"
+        title="Release Patient"
+        onPress={releasePatient}
         />
       </View>
     );

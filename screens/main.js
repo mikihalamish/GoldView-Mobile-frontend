@@ -17,7 +17,7 @@ const Main = () => {
     return (
         <>
             {stage === 0 ? <Departments setStage={setStage} setDepartment={setDepartment}></Departments> : stage === 1 ?
-                <Rooms department={department} setRoom={setRoom} setStage={setStage} setRoom={setRoom}></Rooms> : stage === 2 ? <Patient room={room} setPatient={setPatient} setStage={setStage}/>: stage === 3 ? <PetientInfo patient={patient}></PetientInfo> : <View></View>}
+                <Rooms department={department} setRoom={setRoom} setStage={setStage} setRoom={setRoom}></Rooms> : stage === 2 ? <Patient setStage={setStage} room={room} setPatient={setPatient} setStage={setStage}/>: stage === 3 ? <PetientInfo  setStage={setStage}  patient={patient}></PetientInfo> : <View></View>}
         </>
     );
 }

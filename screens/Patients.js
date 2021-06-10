@@ -15,7 +15,7 @@ const Patient = ({ setPatient, room,setStage }) => {
    
     console.log(room)
     useEffect(() => {
-        axios.get(`${serverUrl}/patients/room/${room}`).then(({data}) => setPatients(data));
+        axios.get(`${serverUrl}/patients/room/${room}`).then(({data}) => {setPatients(data.filter(v => v.releaseDate == null)); console.log(data)});
     }, [])
     
     return (
@@ -30,6 +30,7 @@ const Patient = ({ setPatient, room,setStage }) => {
                             <TouchableOpacity key={patient.id} style={styles.depButton} onPress={() => {
                                 buttonPressed = !buttonPressed
                                 setPatient(patient)
+                                setPatients([])
                                 setStage(3)
                             }
                             }>
