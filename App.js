@@ -53,7 +53,7 @@ export default function App() {
   return (
     <SafeAreaProvider style={styles.container}>
       <Header
-        centerComponent={{ text: "GoldControl", style: { color: "#fff", fontSize: 30 } }}
+        centerComponent={{ text: "GoldControl", style: { color: "#fff" } }}
       />
       <View style={styles.screens}>
         <NativeRouter>
