@@ -13,7 +13,7 @@ export default function App() {
   return (
     <>
     {
-      valid ? <Home></Home> : <Login></Login>
+      valid ? <Home></Home> : <Login setValid={setValid}></Login>
     }
     </>
     

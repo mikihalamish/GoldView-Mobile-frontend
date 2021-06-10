@@ -20,7 +20,7 @@ const DismissKeyboard = ({ children }) => (
     </TouchableWithoutFeedback>
 );
 
-export default function App() {
+export default function App({setValid}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -52,7 +52,8 @@ export default function App() {
                 />
             </View>
 
-            <TouchableOpacity style={styles.loginBtn}>
+            <TouchableOpacity style={styles.loginBtn}
+            onPress={() => setValid(true)}>
                 <Text style={styles.loginText}
                
                 >LOGIN</Text>
